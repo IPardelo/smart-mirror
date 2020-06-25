@@ -29,9 +29,16 @@ Para executar o programa usa:
 python smartmirror.py
 ```
 
+## Liñas obligatorias que substituír
+
+* **Liña 20**: trocamos pola nosa IP Pública.
+* **Liña 25**: trocamos polo noso API TOKEN.
+* **Liña 28**: trocamos NONE pola nosa latitude. ***p.ex.** ‘43.3455975’*
+* **Liña 29**: trocamos NONE pola nosa lonxitude. ***p.ex.** ‘-8.4567084’*
+
 ## Liñas opcionais que substituír
 
-* **Liña 30** valor de tamaño da temperatura.  
+* **Liña 30**: valor de tamaño da temperatura.  
 * **Liña 31**: valor de tamaño do reloxo.  
 * **Liña 32**: valor de tamaño do título “Novas”.  
 * **Liña 33**: valor de tamaño da data, previsión do tempo e novas.  
