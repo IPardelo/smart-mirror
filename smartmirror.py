@@ -16,19 +16,20 @@ from contextlib import contextmanager
 
 LOCALE_LOCK = threading.Lock()
 
+ip = '83.32.43.184'
 ui_locale = '' # e.g. 'fr_FR' fro French, '' as default
 time_format = 12 # 12 or 24
-date_format = "%b %d, %Y" # check python doc for strftime() for options
-news_country_code = 'us'
-weather_api_token = '<TOKEN>' # create account at https://darksky.net/dev/
-weather_lang = 'en' # see https://darksky.net/dev/docs/forecast for full list of language parameters values
-weather_unit = 'us' # see https://darksky.net/dev/docs/forecast for full list of unit parameters values
-latitude = None # Set this if IP location lookup does not work for you (must be a string)
-longitude = None # Set this if IP location lookup does not work for you (must be a string)
-xlarge_text_size = 94
-large_text_size = 48
-medium_text_size = 28
-small_text_size = 18
+date_format = "%d %b, %Y" # check python doc for strftime() for options
+news_country_code = 'es'
+weather_api_token = 'bc5810af5c504348a36826e682ce2768' # create account at https://darksky.net/dev/
+weather_lang = 'es' # see https://darksky.net/dev/docs/forecast for full list of language parameters values
+weather_unit = 'auto' # see https://darksky.net/dev/docs/forecast for full list of unit parameters values
+latitude = '43.1062' # Set this if IP location lookup does not work for you (must be a string)
+longitude = '-9.2175' # Set this if IP location lookup does not work for you (must be a string)
+xlarge_text_size = 57
+large_text_size = 94
+medium_text_size = 20
+small_text_size = 14
 
 @contextmanager
 def setlocale(name): #thread proof function to work with locale
@@ -53,8 +54,8 @@ icon_lookup = {
     'clear-night': "assets/Moon.png",  # clear sky night
     'partly-cloudy-night': "assets/PartlyMoon.png",  # scattered clouds night
     'thunderstorm': "assets/Storm.png",  # thunderstorm
-    'tornado': "assests/Tornado.png",    # tornado
-    'hail': "assests/Hail.png"  # hail
+    'tornado': "assets/Tornado.png",    # tornado
+    'hail': "assets/Hail.png"  # hail
 }
 
 
@@ -67,17 +68,17 @@ class Clock(Frame):
         self.timeLbl.pack(side=TOP, anchor=E)
         # initialize day of week
         self.day_of_week1 = ''
-        self.dayOWLbl = Label(self, text=self.day_of_week1, font=('Helvetica', small_text_size), fg="white", bg="black")
+        self.dayOWLbl = Label(self, text=self.day_of_week1, font=('Helvetica', medium_text_size), fg="white", bg="black")
         self.dayOWLbl.pack(side=TOP, anchor=E)
         # initialize date label
         self.date1 = ''
-        self.dateLbl = Label(self, text=self.date1, font=('Helvetica', small_text_size), fg="white", bg="black")
+        self.dateLbl = Label(self, text=self.date1, font=('Helvetica', medium_text_size), fg="white", bg="black")
         self.dateLbl.pack(side=TOP, anchor=E)
         self.tick()
 
     def tick(self):
         with setlocale(ui_locale):
-            if time_format == 12:
+            if time_format == 24:
                 time2 = time.strftime('%I:%M %p') #hour in 12h format
             else:
                 time2 = time.strftime('%H:%M') #hour in 24h format
@@ -114,7 +115,7 @@ class Weather(Frame):
         self.temperatureLbl.pack(side=LEFT, anchor=N)
         self.iconLbl = Label(self.degreeFrm, bg="black")
         self.iconLbl.pack(side=LEFT, anchor=N, padx=20)
-        self.currentlyLbl = Label(self, font=('Helvetica', medium_text_size), fg="white", bg="black")
+        self.currentlyLbl = Label(self, font=('Helvetica', small_text_size), fg="white", bg="black")
         self.currentlyLbl.pack(side=TOP, anchor=W)
         self.forecastLbl = Label(self, font=('Helvetica', small_text_size), fg="white", bg="black")
         self.forecastLbl.pack(side=TOP, anchor=W)
@@ -171,7 +172,7 @@ class Weather(Frame):
                 if self.icon != icon2:
                     self.icon = icon2
                     image = Image.open(icon2)
-                    image = image.resize((100, 100), Image.ANTIALIAS)
+                    image = image.resize((90, 90), Image.ANTIALIAS)
                     image = image.convert('RGB')
                     photo = ImageTk.PhotoImage(image)
 
@@ -212,7 +213,7 @@ class News(Frame):
     def __init__(self, parent, *args, **kwargs):
         Frame.__init__(self, parent, *args, **kwargs)
         self.config(bg='black')
-        self.title = 'News' # 'News' is more internationally generic
+        self.title = 'Noticias' # 'News' is more internationally generic
         self.newsLbl = Label(self, text=self.title, font=('Helvetica', medium_text_size), fg="white", bg="black")
         self.newsLbl.pack(side=TOP, anchor=W)
         self.headlinesContainer = Frame(self, bg="black")
@@ -225,13 +226,13 @@ class News(Frame):
             for widget in self.headlinesContainer.winfo_children():
                 widget.destroy()
             if news_country_code == None:
-                headlines_url = "https://news.google.com/news?ned=us&output=rss"
+		headlines_url = "http://ep00.epimg.net/rss/ccaa/galicia.xml"
             else:
-                headlines_url = "https://news.google.com/news?ned=%s&output=rss" % news_country_code
+        	headlines_url = "http://www.20minutos.es/rss/ciencia/"
 
             feed = feedparser.parse(headlines_url)
 
-            for post in feed.entries[0:5]:
+            for post in feed.entries[0:6]:
                 headline = NewsHeadline(self.headlinesContainer, post.title)
                 headline.pack(side=TOP, anchor=W)
         except Exception as e:
