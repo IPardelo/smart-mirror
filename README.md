@@ -1,24 +1,18 @@
 # Smart-Mirror
-Raspberry powered mirror which can display the news, weather, and time.
+Espello con raspberry que pode mostrar o tempo, as novas e a hora.
 
-## Installation and Updating
-### Code
-If you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed, clone the repository.
+## Instalación
+## Code
 
-```
-git clone git@github.com:HackerHouseYT/Smart-Mirror.git
-```
-
-**Alternatively, you can download a zip file containing the project (green button on the repository page)**
-
-Navigate to the folder for the repository
+> Si xa tes [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) instalado, clona o repositorio.
 
 ```
-cd Smart-Mirror
+git clone https://github.com/IPardelo/smart-mirror.git
 ```
 
-### Install your dependencies 
-make sure you have [pip](https://pip.pypa.io/en/stable/installing/) installed before doing this
+## Instalar as dependencias
+
+> Si xa tes [pip](https://pip.pypa.io/en/stable/installing/) instalado...
 
 ```
 sudo pip install -r requirements.txt
@@ -28,23 +22,20 @@ sudo pip install -r requirements.txt
 sudo apt-get install python-imaging-tk
 ```
 
-### Add your api token
-Make sure vim is installed on your system: `sudo apt-get install vim`
-Use `vim` to edit you file
-
-```
-vim smartmirror.py
-```
-
-replace `weather_api_token` with the token you got from forecast.io
-
 ## Running
-To run the application run the following command in this folder
 
+Para executar o programa usa:
 ```
 python smartmirror.py
 ```
 
-## Demo and Build Instructions 
-(click image for link to video)
-[![Link to youtube how-to video](http://i.imgur.com/cMyaSHT.png)](https://youtu.be/fkVBAcvbrjU)
+## Liñas opcionais que substituír
+
+* **Liña 30** valor de tamaño da temperatura.  
+* **Liña 31**: valor de tamaño do reloxo.  
+* **Liña 32**: valor de tamaño do título “Novas”.  
+* **Liña 33**: valor de tamaño da data, previsión do tempo e novas.  
+* **Liña 216**: trocamos “News” por “Novas”.  
+
+## Vídeo e instruccións
+[![video](assets/readme.png)](https://youtu.be/fkVBAcvbrjU)
